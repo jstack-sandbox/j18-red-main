@@ -1,0 +1,43 @@
+name: nightly
+on:
+  # Once a year, so a scheduled run never lands beside a step's own.
+  schedule:
+    - cron: "0 0 1 1 *"
+  workflow_dispatch:
+    inputs:
+      journeys:
+        type: choice
+        options: [pass, fail, hang]
+        default: pass
+      suite:
+        type: choice
+        options: [pass, fail, hang]
+        default: pass
+permissions: {}
+jobs:
+  journeys:
+    name: nightly journeys
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    steps:
+      - name: run the browser-a journeys
+        env:
+          OUTCOME: ${{ inputs.journeys || 'pass' }}
+        run: |
+          case "$OUTCOME" in
+            fail) exit 1 ;;
+            hang) sleep 600 ;;
+          esac
+  suite:
+    name: nightly suite
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    steps:
+      - name: run the runner-a suite
+        env:
+          OUTCOME: ${{ inputs.suite || 'pass' }}
+        run: |
+          case "$OUTCOME" in
+            fail) exit 1 ;;
+            hang) sleep 600 ;;
+          esac
