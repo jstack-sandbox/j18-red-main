@@ -1,0 +1,27 @@
+{
+  "jstack": {
+    "version": "1.4.0",
+    "checksum": "sha256:5fdb495ef749d294d60d8f8967974b7b1e154829ee0e085406241833c430f6e4"
+  },
+  "owners": {
+    "owner": "jstack-sandbox-owner"
+  },
+  "profiles": {
+    "lang-a": {},
+    "runner-a": {},
+    "chat-a": {}
+  },
+  "required_checks": {
+    "02 tests": {
+      "producer": {
+        "workflow": ".github/workflows/ci.yml",
+        "job": "tests"
+      }
+    }
+  },
+  "red_main": {
+    "label": "jstack:red-main",
+    "batches": [".github/workflows/nightly.yml"],
+    "daily_at": "13:00"
+  }
+}
