@@ -9,6 +9,7 @@ jobs:
   tests:
     name: 02 tests
     runs-on: ubuntu-24.04
+    environment: ci-release
     steps:
       - uses: actions/checkout@v4
         with:
